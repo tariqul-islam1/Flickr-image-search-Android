@@ -9,3 +9,4 @@ jsonplaceholder.typicode.com/posts
 
 
 ### Preview
+<img src="Screenshot.png" alt="Screenshot" width= "400" height= "700"/>
