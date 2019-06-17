@@ -2,8 +2,8 @@ package com.example.retrofit_fastadapter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -12,13 +12,8 @@ import com.example.retrofit_fastadapter.models.PostModel;
 import com.example.retrofit_fastadapter.services.APIServices;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 
-import java.util.List;
-
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
 
 public class MainActivity extends AppCompatActivity {
 
