@@ -1,6 +1,10 @@
 package com.example.retrofit_fastadapter.clients;
 
+import com.example.retrofit_fastadapter.models.PostModel;
+import com.example.retrofit_fastadapter.services.APIServices;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
+import java.util.List;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

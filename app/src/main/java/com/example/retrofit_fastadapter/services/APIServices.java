@@ -15,6 +15,6 @@ import retrofit2.http.GET;
 public interface APIServices {
 
     @GET("posts")
-    Observable<Call<List<PostModel>>> getPosts();
+    Observable<List<PostModel>> requestForPosts();
 
 }
