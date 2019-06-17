@@ -1,5 +1,7 @@
 package com.example.retrofit_fastadapter.clients;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -13,12 +15,18 @@ public class APIClient {
 
     private static Retrofit retrofit = null;
 
-    public static Retrofit getInstance(){
-        if(retrofit == null){
-            retrofit = new Retrofit.Builder().baseUrl(BaseURL).addConverterFactory(GsonConverterFactory.create()).build();
+    public static Retrofit getInstance() {
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BaseURL)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
         }
         return retrofit;
     }
-    private APIClient(){}
+
+    private APIClient() {
+    }
 
 }
