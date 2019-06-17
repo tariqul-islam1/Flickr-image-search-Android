@@ -7,16 +7,20 @@ import android.widget.TextView;
 import com.example.retrofit_fastadapter.R;
 import com.mikepenz.fastadapter.items.AbstractItem;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Tariqul.Islam on 4/30/17.
  */
 
-public class PostModel extends  AbstractItem<PostModel, PostModel.ViewHolder>{
+public class PostModel extends AbstractItem<PostModel, PostModel.ViewHolder> {
 
     int userId, id;
     String title, body;
+
+    public PostModel() {
+    }
 
     public int getUserId() {
         return userId;
@@ -75,7 +79,7 @@ public class PostModel extends  AbstractItem<PostModel, PostModel.ViewHolder>{
         holder.body.setText(null);
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, body;
 
         public ViewHolder(View itemView) {

@@ -4,6 +4,7 @@ import com.example.retrofit_fastadapter.models.PostModel;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -14,6 +15,6 @@ import retrofit2.http.GET;
 public interface APIServices {
 
     @GET("posts")
-    Call<List<PostModel>> getPosts();
+    Observable<Call<List<PostModel>>> getPosts();
 
 }
