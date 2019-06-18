@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.retrofit_fastadapter.clients.APIClient;
+import com.example.retrofit_fastadapter.models.FlickrModel;
 import com.example.retrofit_fastadapter.models.PostModel;
 import com.example.retrofit_fastadapter.services.APIServices;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         context = this;
         progressDialog = new ProgressDialog(context);
-        recycler = (RecyclerView) findViewById(R.id.recycler);
+        recycler = findViewById(R.id.recycler);
 
         getPosts();
     }
@@ -38,13 +39,13 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        apiService.requestForPosts()
+        apiService.requestForPosts("cat")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(postModels -> {
+                .subscribe(flickrModel -> {
                     //init fast adapter
-                    FastItemAdapter<PostModel> fastAdapter = new FastItemAdapter<>();
-                    fastAdapter.add(postModels);
+                    FastItemAdapter<FlickrModel> fastAdapter = new FastItemAdapter<>();
+                    fastAdapter.add(flickrModel);
 
                     //fill the recycler view
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
