@@ -9,4 +9,4 @@ api.flickr.com
 
 
 ### Preview
-<img src="Screenshot.png" alt="Screenshot" width= "417" height= "700"/>
+<img src="screenshot_new.png" alt="Screenshot" width= "417" height= "700"/>
