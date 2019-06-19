@@ -5,6 +5,7 @@ import com.example.retrofit_fastadapter.models.FlickrModel;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -15,6 +16,6 @@ import retrofit2.http.Query;
 public interface APIServices {
 
     @GET("photos_public.gne?format=json")
-    Observable<FlickrModel> requestForPosts(@Query("tags") String tag);
+    Observable<String> requestForPosts(@Query("tags") String tag);
 
 }

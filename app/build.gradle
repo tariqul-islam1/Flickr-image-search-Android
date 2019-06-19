@@ -40,6 +40,7 @@ dependencies {
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.1.0'
 
     //rxjava
     implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
@@ -52,6 +53,7 @@ dependencies {
     implementation 'com.mikepenz:fastadapter:2.1.7@aar'
     implementation 'com.mikepenz:fastadapter-commons:2.1.0@aar'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 }
 repositories {

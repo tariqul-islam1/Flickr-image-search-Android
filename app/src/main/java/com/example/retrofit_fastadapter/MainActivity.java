@@ -4,13 +4,17 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.EditText;
 
 import com.example.retrofit_fastadapter.clients.APIClient;
 import com.example.retrofit_fastadapter.models.FlickrModel;
-import com.example.retrofit_fastadapter.models.PostModel;
+import com.example.retrofit_fastadapter.models.Item;
 import com.example.retrofit_fastadapter.services.APIServices;
+import com.google.gson.Gson;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -21,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recycler;
     Context context;
     private ProgressDialog progressDialog;
+    EditText searchKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,26 +34,34 @@ public class MainActivity extends AppCompatActivity {
         context = this;
         progressDialog = new ProgressDialog(context);
         recycler = findViewById(R.id.recycler);
-
-        getPosts();
+        searchKey = findViewById(R.id.keyword);
     }
 
-    private void getPosts() {
+    private void getImages() {
         final APIServices apiService = APIClient.getInstance().create(APIServices.class);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
-        apiService.requestForPosts("cat")
+        String keyword = "nature";
+        if (!searchKey.getText().toString().trim().isEmpty()){
+            keyword = searchKey.getText().toString().trim();
+        }
+
+        apiService.requestForPosts(keyword)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(flickrModel -> {
-                    //init fast adapter
-                    FastItemAdapter<FlickrModel> fastAdapter = new FastItemAdapter<>();
-                    fastAdapter.add(flickrModel);
+                .subscribe(response -> {
+
+                    String json = response.substring(15, response.length() - 1);
+//
+                    FlickrModel flickrModel = new Gson().fromJson(json, FlickrModel.class);
+//                    //init fast adapter
+                    FastItemAdapter<Item> fastAdapter = new FastItemAdapter<>();
+                    fastAdapter.add(flickrModel.items);
 
                     //fill the recycler view
-                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+                    RecyclerView.LayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 2);
                     recycler.setLayoutManager(layoutManager);
                     recycler.setAdapter(fastAdapter);
                 }, throwable -> {
@@ -61,5 +74,9 @@ public class MainActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 });
+    }
+
+    public void searchAndUpdateUI(View view){
+        getImages();
     }
 }
