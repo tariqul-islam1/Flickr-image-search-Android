@@ -1,28 +1,16 @@
 package com.example.retrofit_fastadapter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Display;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 
 import com.example.retrofit_fastadapter.clients.APIClient;
 import com.example.retrofit_fastadapter.models.FlickrModel;
@@ -32,7 +20,6 @@ import com.example.retrofit_fastadapter.utils.DeviceData;
 import com.google.gson.Gson;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -43,10 +30,10 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recycler;
     Context context;
     EditText searchKey;
-    boolean isImageFitToScreen;
     ImageView fullScreenImg;
     String keyword;
-    Spinner progressBar;
+    ProgressBar progressBar;
+    Disposable disposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         searchKey.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                progressBar.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -84,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         recycler.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
 
-        Disposable disposable = apiService.requestForPosts(keyword)
+        disposable = apiService.requestForPosts(keyword)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(jsonString -> {
@@ -97,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
                     fastAdapter.add(items);
                     fastAdapter.withSelectable(true);
                     fastAdapter.withOnClickListener((v, adapter, item, position) -> {
+                        try {
+                            getSupportActionBar().hide();
+                        } catch (NullPointerException npe) {
+                            npe.printStackTrace();
+                        }
                         fullScreenImg.setVisibility(View.VISIBLE);
                         String url = item.media.m.replace("_m.jpg", "_b.jpg");
                         Picasso.get().load(url).into(fullScreenImg);
@@ -121,14 +113,30 @@ public class MainActivity extends AppCompatActivity {
 
     public void hideFullScreenImg(View view) {
         view.setVisibility(View.GONE);
+        try {
+            getSupportActionBar().show();
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+        }
     }
 
     @Override
     public void onBackPressed() {
         if (fullScreenImg.getVisibility() == View.VISIBLE) {
             fullScreenImg.setVisibility(View.GONE);
+            try {
+                getSupportActionBar().show();
+            } catch (NullPointerException npe) {
+                npe.printStackTrace();
+            }
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        disposable.dispose();
     }
 }

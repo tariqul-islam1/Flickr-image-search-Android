@@ -13,18 +13,21 @@
         android:orientation="vertical">
 
         <EditText
+            android:hint="Type image keyword..."
             android:id="@+id/keyword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="1" />
 
         <android.support.v7.widget.RecyclerView
+            android:visibility="gone"
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="vertical" />
 
-        <Spinner
+        <ProgressBar
+            android:visibility="gone"
             android:id="@+id/progressBar"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"

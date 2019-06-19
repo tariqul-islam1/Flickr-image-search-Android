@@ -6,9 +6,7 @@ import android.view.Display;
 public class DeviceData {
 
 	private Display display = null;
-
 	private static DeviceData instance = null;
-
 	public static DeviceData getInstance(){
 		if (instance == null){
 			instance = new DeviceData();
