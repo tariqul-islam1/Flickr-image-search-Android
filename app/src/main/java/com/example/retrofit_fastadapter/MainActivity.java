@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
@@ -14,6 +13,7 @@ import com.example.retrofit_fastadapter.clients.APIClient;
 import com.example.retrofit_fastadapter.models.FlickrModel;
 import com.example.retrofit_fastadapter.models.Item;
 import com.example.retrofit_fastadapter.services.APIServices;
+import com.example.retrofit_fastadapter.utils.DeviceData;
 import com.google.gson.Gson;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(context);
         recycler = findViewById(R.id.recycler);
         searchKey = findViewById(R.id.keyword);
+        DeviceData.getInstance().setDisplay(getWindowManager().getDefaultDisplay());
     }
 
     private void getImages() {
@@ -54,13 +55,11 @@ public class MainActivity extends AppCompatActivity {
                 .subscribe(response -> {
 
                     String json = response.substring(15, response.length() - 1);
-//
+
                     FlickrModel flickrModel = new Gson().fromJson(json, FlickrModel.class);
-//                    //init fast adapter
                     FastItemAdapter<Item> fastAdapter = new FastItemAdapter<>();
                     fastAdapter.add(flickrModel.items);
 
-                    //fill the recycler view
                     RecyclerView.LayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 2);
                     recycler.setLayoutManager(layoutManager);
                     recycler.setAdapter(fastAdapter);

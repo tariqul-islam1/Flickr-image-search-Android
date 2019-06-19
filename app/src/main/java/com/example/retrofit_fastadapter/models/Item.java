@@ -1,11 +1,12 @@
 package com.example.retrofit_fastadapter.models;
 
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.retrofit_fastadapter.R;
+import com.example.retrofit_fastadapter.utils.DeviceData;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.squareup.picasso.Picasso;
 
@@ -35,30 +36,19 @@ public class Item extends AbstractItem<Item, Item.ViewHolder> {
 	@Override
 	public void bindView(Item.ViewHolder holder, List<Object> payloads) {
 		super.bindView(holder, payloads);
-
-//		holder.title.setText(title);
-//		holder.body.setText(media.m);
 		Picasso.get().load(media.m).into(holder.img);
 
 	}
 
-	@Override
-	public void unbindView(Item.ViewHolder holder) {
-		super.unbindView(holder);
-//		holder.title.setText(null);
-//		holder.body.setText(null);
-	}
-
 	static class ViewHolder extends RecyclerView.ViewHolder {
-//		TextView title, body;
 		ImageView img;
 
 		public ViewHolder(View itemView) {
 			super(itemView);
+			img = itemView.findViewById(R.id.img);
 
-//			title = itemView.findViewById(R.id.title);
-			//			body = itemView.findViewById(R.id.body);
-						img = itemView.findViewById(R.id.img);
+			img.getLayoutParams().width = DeviceData.getInstance().getDisplayWidth() / 2;
+			img.getLayoutParams().height = DeviceData.getInstance().getDisplayWidth() / 2;
 
 		}
 	}
