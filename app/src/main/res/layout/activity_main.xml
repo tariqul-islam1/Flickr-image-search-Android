@@ -1,36 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/full_screen"
-              xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              tools:context="com.example.retrofit_fastadapter.MainActivity">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/full_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.retrofit_fastadapter.MainActivity">
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="10dp"
-		android:orientation="horizontal">
+    <LinearLayout
+        android:id="@+id/contents"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-		<EditText
-			android:id="@+id/keyword"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="5" />
+        <EditText
+            android:id="@+id/keyword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1" />
 
-		<Button
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="3"
-			android:onClick="searchAndUpdateUI"
-			android:text="Search" />
-	</LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical" />
 
-	<android.support.v7.widget.RecyclerView
-		android:id="@+id/recycler"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:scrollbars="vertical" />
+        <Spinner
+            android:id="@+id/progressBar"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/fullScreenImg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#C9000000"
+        android:onClick="hideFullScreenImg"
+        android:scaleType="fitCenter"
+        android:visibility="gone" />
+</FrameLayout>
+

@@ -44,7 +44,7 @@ public class Item extends AbstractItem<Item, Item.ViewHolder> {
 
 	@Override
 	public int getLayoutRes() {
-		return R.layout.recycler_item_posts;
+		return R.layout.grid_item;
 	}
 
 	@Override
