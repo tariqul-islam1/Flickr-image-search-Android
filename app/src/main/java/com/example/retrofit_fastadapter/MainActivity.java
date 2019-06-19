@@ -6,8 +6,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.retrofit_fastadapter.clients.APIClient;
 import com.example.retrofit_fastadapter.models.FlickrModel;
@@ -26,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     private ProgressDialog progressDialog;
     EditText searchKey;
+    boolean isImageFitToScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +66,30 @@ public class MainActivity extends AppCompatActivity {
                     FlickrModel flickrModel = new Gson().fromJson(json, FlickrModel.class);
                     FastItemAdapter<Item> fastAdapter = new FastItemAdapter<>();
                     fastAdapter.add(flickrModel.items);
+                    fastAdapter.withSelectable(true);
+                    fastAdapter.withOnClickListener((v, adapter, item, position) -> {
+                        ImageView imageView = (ImageView) v;
+
+                        ImageView fullScreenImageView = (ImageView) getLayoutInflater().inflate(R.layout.full_screen_image, null);
+                        LinearLayout linearLayout = findViewById(R.id.full_screen);
+                        fullScreenImageView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                        linearLayout.addView(fullScreenImageView);
+
+                        if(isImageFitToScreen) {
+                            isImageFitToScreen=false;
+                            imageView.setMinimumWidth(DeviceData.getInstance().getDisplayWidth() / 2);
+                            imageView.setMinimumHeight(DeviceData.getInstance().getDisplayWidth() / 2);
+//                            imageView.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT, RecyclerView.LayoutParams.WRAP_CONTENT));
+                            imageView.setAdjustViewBounds(true);
+                        }else{
+                            isImageFitToScreen=true;
+                            imageView.setMinimumWidth(DeviceData.getInstance().getDisplayWidth());
+                            imageView.setMinimumHeight(DeviceData.getInstance().getDisplayHeight());
+//                            imageView.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.MATCH_PARENT));
+                            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                        }
+                        return false;
+                    });
 
                     RecyclerView.LayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 2);
                     recycler.setLayoutManager(layoutManager);

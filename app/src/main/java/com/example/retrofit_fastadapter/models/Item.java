@@ -1,5 +1,6 @@
 package com.example.retrofit_fastadapter.models;
 
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.mikepenz.fastadapter.items.AbstractItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Random;
 
 public class Item extends AbstractItem<Item, Item.ViewHolder> {
 	public String title;
@@ -22,6 +24,18 @@ public class Item extends AbstractItem<Item, Item.ViewHolder> {
 	public String author;
 	public String authorId;
 	public String tags;
+	public long id;
+
+
+	public long getId() {
+		try {
+			id = Long.valueOf(Uri.parse(link).getLastPathSegment() + "");
+		}catch (NullPointerException npe){
+			id = new Random().nextLong();
+			npe.printStackTrace();
+		}
+		return id;
+	}
 
 	@Override
 	public int getType() {
@@ -36,8 +50,8 @@ public class Item extends AbstractItem<Item, Item.ViewHolder> {
 	@Override
 	public void bindView(Item.ViewHolder holder, List<Object> payloads) {
 		super.bindView(holder, payloads);
+//		holder.img.setTag(media.m);
 		Picasso.get().load(media.m).into(holder.img);
-
 	}
 
 	static class ViewHolder extends RecyclerView.ViewHolder {

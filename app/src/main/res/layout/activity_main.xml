@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.retrofit_fastadapter.MainActivity">
+<LinearLayout android:id="@+id/full_screen"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.example.retrofit_fastadapter.MainActivity">
 
-    <LinearLayout
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="10dp"
+		android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/keyword"
-            android:layout_weight="5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+		<EditText
+			android:id="@+id/keyword"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="5" />
 
-        <Button
-            android:onClick="searchAndUpdateUI"
-            android:text="Search"
-            android:layout_weight="3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+		<Button
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="3"
+			android:onClick="searchAndUpdateUI"
+			android:text="Search" />
+	</LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:scrollbars="vertical"
-        android:id="@+id/recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+	<android.support.v7.widget.RecyclerView
+		android:id="@+id/recycler"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:scrollbars="vertical" />
 
 </LinearLayout>
