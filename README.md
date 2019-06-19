@@ -5,7 +5,7 @@ I created this especially for FastAdapter. FastAdapter is one of my favourite Gi
 
 
 ### Data provider
-jsonplaceholder.typicode.com/posts
+api.flickr.com
 
 
 ### Preview
