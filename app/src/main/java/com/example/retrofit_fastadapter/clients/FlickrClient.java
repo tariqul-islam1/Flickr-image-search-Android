@@ -9,7 +9,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  * Created by Tariqul.Islam on 4/30/17.
  */
 
-public class APIClient {
+public class FlickrClient {
 
     private final static String BaseURL = "https://api.flickr.com/services/feeds/";
     private static Retrofit retrofit = null;
@@ -25,7 +25,7 @@ public class APIClient {
         return retrofit;
     }
 
-    private APIClient() {
+    private FlickrClient() {
     }
 
 }

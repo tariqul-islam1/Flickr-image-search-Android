@@ -15,8 +15,10 @@
         <EditText
             android:hint="Type image keyword..."
             android:id="@+id/keyword"
+            android:imeOptions="actionDone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:maxLines="1" />
 
         <android.support.v7.widget.RecyclerView
@@ -34,7 +36,7 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <ImageView
+    <com.example.retrofit_fastadapter.views.ZoomableImageView
         android:id="@+id/fullScreenImg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

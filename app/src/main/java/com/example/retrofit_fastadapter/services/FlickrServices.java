@@ -8,7 +8,7 @@ import retrofit2.http.Query;
  * Created by Tariqul.Islam on 4/30/17.
  */
 
-public interface APIServices {
+public interface FlickrServices {
 
     @GET("photos_public.gne?format=json")
     Observable<String> requestForPosts(@Query("tags") String tag);
