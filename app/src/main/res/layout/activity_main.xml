@@ -18,7 +18,7 @@
             android:imeOptions="actionDone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="true"
+            android:inputType="text"
             android:maxLines="1" />
 
         <android.support.v7.widget.RecyclerView
