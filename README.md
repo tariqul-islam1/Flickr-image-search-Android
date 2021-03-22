@@ -9,4 +9,4 @@ api.flickr.com
 
 
 ### Preview
-<img src="screenshot_new.png" alt="Screenshot" width= "600" height= "600"/>
+![demo](https://github.com/tariqul-islam1/Flickr-image-search-Android/blob/master/flickr-demo.gif)
